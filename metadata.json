@@ -1,0 +1,6 @@
+{
+  "name": "Pehuenia 4x4",
+  "description": "Aplicación oficial de Pehuenia 4x4, expediciones de invierno en Villa Pehuenia con circuitos, galería de fotos y reservas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
