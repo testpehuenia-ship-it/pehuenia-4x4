@@ -34,10 +34,11 @@ const GUIDES = [
 ];
 
 export default function QuienesSomos({ onAddReservation, bookingSuccess, setBookingSuccess }: QuienesSomosProps) {
+  const [category, setCategory] = useState('Curso de Manejo & Práctica (Iniciados)');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    date: '',
+    date: '2026-09-11',
     people: '1-2',
     vehicle: 'Toyota Hilux / SW4',
     message: ''
@@ -53,7 +54,7 @@ export default function QuienesSomos({ onAddReservation, bookingSuccess, setBook
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       errors.email = 'El email ingresado no es válido';
     }
-    if (!formData.date) errors.date = 'La fecha estimada es requerida';
+    if (!formData.date) errors.date = 'La fecha es requerida';
     return errors;
   };
 
@@ -65,13 +66,20 @@ export default function QuienesSomos({ onAddReservation, bookingSuccess, setBook
       return;
     }
     setFormErrors({});
-    onAddReservation(formData);
     
-    // Clear form
+    // Combinar la categoría de inscripción en el mensaje
+    const submitData = {
+      ...formData,
+      message: `[Categoría: ${category}] ${formData.message}`
+    };
+    
+    onAddReservation(submitData);
+    
+    // Limpiar formulario manteniendo los valores por defecto del encuentro
     setFormData({
       name: '',
       email: '',
-      date: '',
+      date: '2026-09-11',
       people: '1-2',
       vehicle: 'Toyota Hilux / SW4',
       message: ''
@@ -92,10 +100,10 @@ export default function QuienesSomos({ onAddReservation, bookingSuccess, setBook
           <div className="absolute inset-0 bg-gradient-to-t from-bg-main via-bg-main/40 to-transparent" />
         </div>
         <div className="relative z-10 px-4 md:px-16 max-w-4xl">
-          <span className="font-display text-xs font-bold text-primary tracking-[0.2em] mb-3 block uppercase">OPERACIONES DE MONTAÑA</span>
+          <span className="font-display text-xs font-bold text-primary tracking-[0.2em] mb-3 block uppercase">11 Y 12 DE SEPTIEMBRE, 2026</span>
           <h1 className="font-display text-2xl sm:text-3xl md:text-6xl font-extrabold text-white mb-4 md:mb-6 uppercase leading-tight">
-            Liderazgo en<br />
-            <span className="text-primary">Terreno Extremo</span>
+            1er Encuentro Provincial<br />
+            <span className="text-primary">Travesía en Nieve</span>
           </h1>
         </div>
       </section>
@@ -224,7 +232,7 @@ export default function QuienesSomos({ onAddReservation, bookingSuccess, setBook
 
           {/* Booking Form Card */}
           <div className="lg:col-span-7 glass-card p-6 md:p-12 rounded-lg relative">
-            <h3 className="font-display text-2xl font-bold text-text-main mb-8 uppercase tracking-tight">Formulario de Reserva</h3>
+            <h3 className="font-display text-2xl font-bold text-text-main mb-8 uppercase tracking-tight">Inscripción Oficial - 1er Encuentro Provincial</h3>
             
             {bookingSuccess ? (
               <motion.div 
@@ -233,9 +241,9 @@ export default function QuienesSomos({ onAddReservation, bookingSuccess, setBook
                 className="bg-primary/10 border border-primary p-8 rounded text-center space-y-4"
               >
                 <CheckCircle className="w-12 h-12 text-primary mx-auto" />
-                <h4 className="font-display text-xl font-bold text-white uppercase">Solicitud Recibida</h4>
+                <h4 className="font-display text-xl font-bold text-white uppercase">Inscripción Recibida</h4>
                 <p className="text-sm text-[#ccdbf4]/80 max-w-md mx-auto leading-relaxed">
-                  Tu solicitud ha sido registrada con éxito en nuestro sistema de travesías. En breve, un guía del equipo de operaciones se comunicará para validar el equipamiento de tu unidad.
+                  Tu inscripción para el 1er Encuentro Provincial ha sido registrada con éxito. Un coordinador del equipo se comunicará en breve para confirmar los detalles de tu categoría, kit oficial y equipamiento de tu unidad.
                 </p>
                 <button
                   onClick={() => setBookingSuccess(false)}
@@ -277,17 +285,28 @@ export default function QuienesSomos({ onAddReservation, bookingSuccess, setBook
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Date */}
+                  {/* Date (Event Fixed) */}
                   <div className="space-y-2">
-                    <label className="font-display text-[10px] text-text-muted tracking-wider uppercase font-semibold">Fecha Estimada</label>
+                    <label className="font-display text-[10px] text-text-muted tracking-wider uppercase font-semibold">Fecha del Evento</label>
                     <input
-                      type="date"
-                      required
-                      value={formData.date}
-                      onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                      className="w-full bg-bg-main border border-border-custom px-4 py-3 text-sm text-text-main focus:outline-none focus:border-primary rounded"
+                      type="text"
+                      readOnly
+                      value="11 y 12 de Septiembre, 2026"
+                      className="w-full bg-bg-main/50 border border-border-custom px-4 py-3 text-sm text-text-main/70 focus:outline-none rounded cursor-not-allowed font-medium"
                     />
-                    {formErrors.date && <p className="text-red-500 text-xs">{formErrors.date}</p>}
+                  </div>
+
+                  {/* Event Category */}
+                  <div className="space-y-2">
+                    <label className="font-display text-[10px] text-text-muted tracking-wider uppercase font-semibold">Categoría de Inscripción</label>
+                    <select
+                      value={category}
+                      onChange={(e) => setCategory(e.target.value)}
+                      className="w-full bg-bg-main border border-border-custom px-4 py-3 text-sm text-text-main focus:outline-none focus:border-primary rounded font-medium"
+                    >
+                      <option value="Curso de Manejo & Práctica (Iniciados)" className="bg-bg-main text-text-main">Curso de Manejo & Práctica (Iniciados)</option>
+                      <option value="Travesía con Puntaje (Experimentados)" className="bg-bg-main text-text-main">Travesía con Puntaje (Experimentados)</option>
+                    </select>
                   </div>
 
                   {/* Number of People */}
@@ -335,9 +354,9 @@ export default function QuienesSomos({ onAddReservation, bookingSuccess, setBook
 
                 <button
                   type="submit"
-                  className="w-full py-5 bg-primary hover:bg-primary-hover text-white font-display text-xs font-bold tracking-widest transition-all duration-300 rounded cursor-pointer"
+                  className="w-full py-5 bg-primary hover:bg-primary-hover text-white font-display text-xs font-bold tracking-widest transition-all duration-300 rounded cursor-pointer uppercase"
                 >
-                  SOLICITAR RESERVA
+                  COMPLETAR INSCRIPCIÓN
                 </button>
               </form>
             )}

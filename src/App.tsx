@@ -8,6 +8,7 @@ import Galeria from './components/Galeria';
 import QuienesSomos from './components/QuienesSomos';
 import ReservasManager from './components/ReservasManager';
 import ScrollSplashEffect from './components/ScrollSplashEffect';
+import EventPopup from './components/EventPopup';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<Tab>('inicio');
@@ -16,6 +17,24 @@ export default function App() {
   const [bookingSuccess, setBookingSuccess] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  // Trigger event pop-up once per session after 2 seconds
+  useEffect(() => {
+    const shown = sessionStorage.getItem('pehuenia_event_popup_shown');
+    if (!shown) {
+      const timer = setTimeout(() => {
+        setIsPopupOpen(true);
+        sessionStorage.setItem('pehuenia_event_popup_shown', 'true');
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  const handleRegisterFromPopup = () => {
+    setIsPopupOpen(false);
+    handleNavigate('quienes-somos', 'reserva-form');
+  };
 
   // Load theme from localStorage on mount
   useEffect(() => {
@@ -106,6 +125,13 @@ export default function App() {
     <div className="min-h-screen flex flex-col justify-between bg-bg-main text-text-secondary font-sans antialiased transition-colors duration-300">
       {/* Scroll Splash Wheel Particles (Snow & Mud) */}
       <ScrollSplashEffect theme={theme} />
+
+      {/* High-impact Registration Pop-up */}
+      <EventPopup 
+        isOpen={isPopupOpen} 
+        onClose={() => setIsPopupOpen(false)} 
+        onRegisterClick={handleRegisterFromPopup} 
+      />
 
       {/* Dynamic Snowflake Background Accent */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden opacity-5 dark:opacity-5 light:opacity-[0.03] z-0">

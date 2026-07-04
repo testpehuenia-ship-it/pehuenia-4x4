@@ -23,13 +23,13 @@ export default function Inicio({ onNavigate, theme }: InicioProps) {
             viewport={{ once: true }}
             className="font-display text-3xl md:text-5xl font-bold text-text-main mb-4 uppercase tracking-tight"
           >
-            EQUIPADOS PARA EL DESAFÍO
+            ACTIVIDADES Y CRONOGRAMA
           </motion.h2>
           <div className="h-1 w-20 bg-primary mx-auto" />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 max-w-7xl mx-auto">
-          {/* Card 1: Vehículos de Élite */}
+          {/* Card 1: Curso de Manejo y Eco-Cuidado */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -39,19 +39,19 @@ export default function Inicio({ onNavigate, theme }: InicioProps) {
             <div 
               className="absolute inset-0 z-0 opacity-40 group-hover:scale-105 transition-transform duration-700 bg-cover bg-center"
               style={{ 
-                backgroundImage: `url('https://lh3.googleusercontent.com/aida-public/AB6AXuDU67i_ryxiiYAFa7mJ-h5Pk2geIVKccq4poUMtbzo3YHSkqA4ADJkUtQjbnbbafGEoXxaxRbZ7jwN3KLVn8bTRl8l3h_lQMQKOJqlQw7VqXEk50vsHufuPRJD8L-6sTwS6zmpJIFG7FHynyzYGdnm0WEk7ZY3lpfGcc8pkzO2z05vCi3YHJGA5Qb5GwMOa7htoTd8f_JFmOleiqyhWDXkb3vfSDGS7gdxIpcEnjD-uRme4wesTuTeXFML2L_4Bj6_d4Qzgzxs7Uug')`
+                backgroundImage: `url('/hero_snow_4x4_2.png')`
               }}
             />
             <div className="relative z-10">
-              <Settings className="text-primary w-12 h-12 mb-6" />
-              <h3 className="font-display text-2xl font-bold text-text-main mb-4 uppercase">Vehículos de Élite</h3>
+              <Settings className="text-primary w-12 h-12 mb-6 animate-spin-slow" />
+              <h3 className="font-display text-2xl font-bold text-text-main mb-4 uppercase">1. Curso de Manejo & Cuidado Ecológico</h3>
               <p className="font-sans text-sm md:text-base text-text-secondary max-w-md leading-relaxed">
-                Flota de camionetas modificadas con bloqueos de diferencial, malacates y neumáticos de nieve específicos para garantizar seguridad en cualquier terreno.
+                Capacitación técnica intensiva para dominar la conducción en superficies heladas y nieve honda. Incluye talleres prácticos sobre uso ecológico y responsable de senderos protegidos.
               </p>
             </div>
           </motion.div>
 
-          {/* Card 2: Guías Expertos */}
+          {/* Card 2: Práctica para Nuevos */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -60,21 +60,21 @@ export default function Inicio({ onNavigate, theme }: InicioProps) {
           >
             <div>
               <Users className="text-primary w-12 h-12 mb-6" />
-              <h3 className="font-display text-2xl font-bold text-text-main mb-4 uppercase">Guías Expertos</h3>
+              <h3 className="font-display text-2xl font-bold text-text-main mb-4 uppercase">2. Práctica de Nuevos Incursionados</h3>
               <p className="font-sans text-sm md:text-base text-text-secondary leading-relaxed">
-                Personal con certificación internacional en rescate y primeros auxilios en zonas agrestes.
+                Circuitos y pendientes controladas ideales para quienes debutan en la nieve. Aprendé a modular tracción y dominar la inercia en un entorno asistido y seguro.
               </p>
             </div>
             <button 
-              onClick={() => onNavigate('quienes-somos')}
+              onClick={() => onNavigate('quienes-somos', 'reserva-form')}
               className="mt-8 md:mt-12 font-display text-xs font-bold text-primary hover:text-text-main border-t border-border-custom pt-6 flex items-center justify-between group-hover:translate-x-2 transition-transform duration-300 w-full text-left cursor-pointer"
             >
-              CONOCÉ AL EQUIPO
+              INSCRIBIRSE AHORA
               <ArrowRight className="w-5 h-5" />
             </button>
           </motion.div>
 
-          {/* Card 3: Rutas Únicas */}
+          {/* Card 3: Travesía para Experimentados */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -83,21 +83,21 @@ export default function Inicio({ onNavigate, theme }: InicioProps) {
           >
             <div>
               <Mountain className="text-primary w-10 h-10 md:w-12 md:h-12 mb-4 md:mb-6" />
-              <h3 className="font-display text-xl md:text-2xl font-bold text-text-main mb-3 md:mb-4 uppercase">Rutas Únicas</h3>
+              <h3 className="font-display text-xl md:text-2xl font-bold text-text-main mb-3 md:mb-4 uppercase">3. Travesía de Alta Montaña</h3>
               <p className="font-sans text-sm md:text-base text-text-secondary leading-relaxed">
-                Acceso exclusivo a senderos de alta montaña vedados al público general durante el invierno.
+                Ruta técnica extrema sobre filos cordilleranos para pilotos experimentados. Con sistema de puntajes y clasificaciones válidas para el campeonato off-road 2027.
               </p>
             </div>
             <button 
               onClick={() => onNavigate('circuito')}
               className="mt-8 md:mt-12 font-display text-xs font-bold text-primary hover:text-text-main border-t border-border-custom pt-6 flex items-center justify-between group-hover:translate-x-2 transition-transform duration-300 w-full text-left cursor-pointer"
             >
-              VER MAPA
+              VER CIRCUITOS
               <Map className="w-5 h-5" />
             </button>
           </motion.div>
 
-          {/* Card 4: Seguridad ante todo */}
+          {/* Card 4: Servicios y Beneficios */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -105,15 +105,17 @@ export default function Inicio({ onNavigate, theme }: InicioProps) {
             className="md:col-span-8 glass-card p-6 md:p-10 flex flex-col justify-center relative overflow-hidden rounded"
           >
             <div className="flex flex-wrap gap-3 mb-8">
-              <span className="bg-primary text-white px-4 py-2 font-mono text-[10px] font-bold uppercase border border-primary/50 tracking-widest rounded shadow-[0_0_15px_rgba(255,95,31,0.35)] transition-all duration-300 hover:scale-105">Diff Lock Active</span>
-              <span className="bg-primary text-white px-4 py-2 font-mono text-[10px] font-bold uppercase border border-primary/50 tracking-widest rounded shadow-[0_0_15px_rgba(255,95,31,0.35)] transition-all duration-300 hover:scale-105">Low Range 4x4</span>
-              <span className="bg-primary text-white px-4 py-2 font-mono text-[10px] font-bold uppercase border border-primary/50 tracking-widest rounded shadow-[0_0_15px_rgba(255,95,31,0.35)] transition-all duration-300 hover:scale-105">Winch Ready</span>
-              <span className="bg-primary text-white px-4 py-2 font-mono text-[10px] font-bold uppercase border border-primary/50 tracking-widest rounded shadow-[0_0_15px_rgba(255,95,31,0.35)] transition-all duration-300 hover:scale-105">Satellite Comms</span>
+              <span className="bg-primary text-white px-4 py-2 font-mono text-[10px] font-bold uppercase border border-primary/50 tracking-widest rounded shadow-[0_0_15px_rgba(255,95,31,0.35)] transition-all duration-300 hover:scale-105">Curso & Eco-Manejo</span>
+              <span className="bg-primary text-white px-4 py-2 font-mono text-[10px] font-bold uppercase border border-primary/50 tracking-widest rounded shadow-[0_0_15px_rgba(255,95,31,0.35)] transition-all duration-300 hover:scale-105">Travesía Competitiva</span>
+              <span className="bg-primary text-white px-4 py-2 font-mono text-[10px] font-bold uppercase border border-primary/50 tracking-widest rounded shadow-[0_0_15px_rgba(255,95,31,0.35)] transition-all duration-300 hover:scale-105">Almuerzo en Montaña</span>
+              <span className="bg-primary text-white px-4 py-2 font-mono text-[10px] font-bold uppercase border border-primary/50 tracking-widest rounded shadow-[0_0_15px_rgba(255,95,31,0.35)] transition-all duration-300 hover:scale-105">Cena Show de Gala</span>
+              <span className="bg-primary text-white px-4 py-2 font-mono text-[10px] font-bold uppercase border border-primary/50 tracking-widest rounded shadow-[0_0_15px_rgba(255,95,31,0.35)] transition-all duration-300 hover:scale-105">Kit: Gorra & Remera</span>
+              <span className="bg-primary text-white px-4 py-2 font-mono text-[10px] font-bold uppercase border border-primary/50 tracking-widest rounded shadow-[0_0_15px_rgba(255,95,31,0.35)] transition-all duration-300 hover:scale-105">Sorteos Permanentes</span>
             </div>
             <div>
-              <h3 className="font-display text-2xl font-bold text-text-main mb-3 uppercase">Seguridad ante todo</h3>
+              <h3 className="font-display text-2xl font-bold text-text-main mb-3 uppercase">Kit del Participante, Gastronomía y Sorteos</h3>
               <p className="font-sans text-sm md:text-base text-text-secondary leading-relaxed">
-                Cada expedición cuenta con seguimiento satelital en tiempo real y protocolo de emergencia redundante para que disfrutes sin preocupaciones.
+                Todas las inscripciones incluyen el Kit de bienvenida con Remera y Gorra oficial bordadas con el logo del encuentro. Además, disfrutá de un almuerzo caliente en plena montaña nevada, una cena de gala con show artístico, entrega de premios y sorteos de equipamiento 4x4 durante todo el evento.
               </p>
             </div>
           </motion.div>

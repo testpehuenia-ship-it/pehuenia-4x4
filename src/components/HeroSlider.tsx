@@ -15,37 +15,37 @@ const SLIDES: Slide[] = [
   {
     id: 1,
     url: '/hero_snow_4x4_1.png',
-    subtitle: 'EXPEDICIONES DE INVIERNO',
-    title: 'ADRENALINA EN LA NIEVE',
-    description: 'Descubrí la Patagonia salvaje bajo un manto blanco. Travesías guiadas por expertos en Villa Pehuenia con vehículos de alta performance preparados para el clima más extremo.'
+    subtitle: '11 Y 12 DE SEPTIEMBRE 2026',
+    title: '1ER ENCUENTRO PROVINCIAL',
+    description: 'El evento off-road invernal más importante del año en Villa Pehuenia. Viví dos días extremos de travesías, capacitación, gastronomía y camaradería en la nieve.'
   },
   {
     id: 2,
     url: '/hero_snow_4x4_2.png',
-    subtitle: 'DESAFÍOS TÉCNICOS',
-    title: 'PENDIENTES EXTREMAS',
-    description: 'Sentí el poder de la tracción total superando acumulaciones de nieve virgen y pendientes congeladas con la asistencia de nuestros guías certificados.'
+    subtitle: 'CAPACITACIÓN TÉCNICA',
+    title: 'MANEJO EN NIEVE Y ECO-CUIDADO',
+    description: 'Curso intensivo de conducción invernal dictado por expertos. Técnicas de rescate, uso de malacate y eslingas con un fuerte enfoque en el cuidado ecológico de nuestras áreas naturales.'
   },
   {
     id: 3,
     url: '/hero_snow_4x4_3.png',
-    subtitle: 'NAVEGACIÓN EN ALTURA',
-    title: 'FILOS DE LA CORDILLERA',
-    description: 'Navegá en convoy a través de filos montañosos nevados, contemplando vistas panorámicas únicas de los volcanes Lanín y Batea Mahuida.'
+    subtitle: 'PISTAS CONTROLADAS',
+    title: 'PRÁCTICA DE NUEVOS INCURSIONADOS',
+    description: 'El espacio ideal para quienes dan sus primeros pasos sobre la nieve. Pistas seguras diseñadas para probar controles de tracción y aprender la física de la conducción invernal.'
   },
   {
     id: 4,
     url: '/hero_snow_4x4_4.png',
-    subtitle: 'BOSQUE DE ARAUCARIAS',
-    title: 'RUTAS DE HIELO VIRGEN',
-    description: 'Trazá senderos en bosques centenarios vedados al público general durante el invierno. Un escenario de fantasía invernal a tu alcance.'
+    subtitle: 'DESAFÍO EXTREMO',
+    title: 'TRAVESÍA CON PUNTAJE OFICIAL',
+    description: 'Rutas de alta exigencia por filos montañosos y bosques de araucarias para experimentados. Sistema de puntuación y clasificación para el campeonato del próximo año.'
   },
   {
     id: 5,
     url: '/hero_snow_4x4_5.png',
-    subtitle: 'AVENTURA SIN LÍMITES',
-    title: 'EXPEDICIÓN NOCTURNA',
-    description: 'Desafiá la oscuridad total de la cordillera patagónica con potentes barras LED de alta intensidad. La montaña estrellada como nunca antes la viste.'
+    subtitle: 'BENEFICIOS INCLUIDOS',
+    title: 'KIT OFICIAL, CENA Y SORTEOS',
+    description: 'La inscripción incluye Gorra y Remera del evento, almuerzo en la montaña nevada, gran Cena Show de gala, sorteos permanentes y entrega de premios.'
   }
 ];
 
@@ -194,7 +194,7 @@ export default function HeroSlider({ onNavigate, theme }: HeroSliderProps) {
             onClick={() => onNavigate('quienes-somos', 'reserva-form')}
             className="bg-primary hover:bg-primary-hover text-white font-display text-xs md:text-sm font-bold tracking-widest px-6 py-4 md:px-10 md:py-5 transition-all duration-300 active:scale-95 shadow-xl cursor-pointer rounded"
           >
-            RESERVA TU TRAVESÍA
+            INSCRIBIRSE AL ENCUENTRO
           </button>
           <button 
             onClick={() => onNavigate('circuito')}
