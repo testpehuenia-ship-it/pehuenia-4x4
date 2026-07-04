@@ -146,15 +146,13 @@ export default function App() {
           {/* Logo */}
           <div 
             onClick={() => handleNavigate('inicio')}
-            className="flex items-center gap-3 cursor-pointer group"
+            className="flex items-center cursor-pointer group py-2"
           >
-            <div className="w-10 h-10 bg-primary flex items-center justify-center rounded transition-transform duration-300 group-hover:rotate-12">
-              <Snowflake className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <span className="font-display text-lg font-black text-text-main tracking-widest uppercase">PEHUENIA</span>
-              <span className="font-display text-lg font-light text-primary tracking-widest uppercase ml-1">4X4</span>
-            </div>
+            <img 
+              src="/logoTraza4x4.png" 
+              alt="TRAZA 4x4" 
+              className="h-14 md:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105" 
+            />
           </div>
 
           {/* Desktop Navigation */}
@@ -293,13 +291,11 @@ export default function App() {
           {/* Col 1: Brand */}
           <div className="md:col-span-5 space-y-6">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-primary flex items-center justify-center rounded">
-                <Snowflake className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <span className="font-display text-lg font-black text-text-main tracking-widest uppercase">PEHUENIA</span>
-                <span className="font-display text-lg font-light text-primary tracking-widest uppercase ml-1">4X4</span>
-              </div>
+              <img 
+                src="/logoTraza4x4.png" 
+                alt="TRAZA 4x4" 
+                className="h-16 md:h-18 w-auto object-contain" 
+              />
             </div>
             <p className="font-sans text-sm text-text-muted max-w-sm leading-relaxed">
               Expediciones extremas y turismo aventura en Villa Pehuenia, Neuquén, Patagonia Argentina. Equipamiento de élite y guías profesionales para garantizar travesías inolvidables.
@@ -328,7 +324,7 @@ export default function App() {
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-primary" />
-                <span className="font-mono text-text-main">radiospehuenia@gmail.com</span>
+                <span className="font-mono text-text-main">radiotraza4x4@gmail.com</span>
               </div>
               <div className="flex items-center gap-3">
                 <MapPin className="w-4 h-4 text-primary" />
@@ -340,7 +336,7 @@ export default function App() {
 
         <div className="max-w-7xl mx-auto mt-16 pt-8 border-t border-border-custom flex flex-col sm:flex-row justify-between items-center gap-4 text-center">
           <p className="text-[10px] text-text-muted font-mono">
-            &copy; {new Date().getFullYear()} PEHUENIA 4X4. Todos los derechos reservados.
+            &copy; {new Date().getFullYear()} TRAZA 4X4. Todos los derechos reservados.
           </p>
           <div className="flex gap-6 text-[10px] font-display font-semibold tracking-wider text-text-muted">
             <span className="hover:text-primary transition-colors cursor-pointer">TÉRMINOS DE SERVICIO</span>
