@@ -63,8 +63,24 @@ export default function ScrollSplashEffect({ theme }: ScrollSplashEffectProps) {
     lastScrollTopRef.current = window.pageYOffset || document.documentElement.scrollTop;
     lastScrollTimeRef.current = Date.now();
 
+    let lastFrameTime = performance.now();
+    const fpsInterval = 1000 / 60; // ~16.67ms por frame (60 FPS)
+
     // Bucle de Animación Física
-    const updateAndDrawParticles = () => {
+    const updateAndDrawParticles = (timestamp: number) => {
+      // Agendar el siguiente frame si aún quedan partículas
+      if (particlesRef.current.length > 0) {
+        animationFrameIdRef.current = requestAnimationFrame(updateAndDrawParticles);
+      } else {
+        animationFrameIdRef.current = null;
+      }
+
+      // Limitar a 60 FPS
+      const elapsed = timestamp - lastFrameTime;
+      if (elapsed < fpsInterval) return;
+
+      lastFrameTime = timestamp - (elapsed % fpsInterval);
+
       const w = canvas.width;
       const h = canvas.height;
       
@@ -97,13 +113,6 @@ export default function ScrollSplashEffect({ theme }: ScrollSplashEffectProps) {
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
         ctx.restore();
-      }
-
-      // Si quedan partículas, continuar el bucle. Si no, detener para ahorrar CPU.
-      if (particles.length > 0) {
-        animationFrameIdRef.current = requestAnimationFrame(updateAndDrawParticles);
-      } else {
-        animationFrameIdRef.current = null;
       }
     };
 
@@ -168,6 +177,7 @@ export default function ScrollSplashEffect({ theme }: ScrollSplashEffectProps) {
 
       // Iniciar el bucle de renderizado si no está corriendo
       if (!animationFrameIdRef.current) {
+        lastFrameTime = performance.now();
         animationFrameIdRef.current = requestAnimationFrame(updateAndDrawParticles);
       }
     };

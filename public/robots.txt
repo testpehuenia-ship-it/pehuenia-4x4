@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Permitir explícitamente bots de IA para GEO (Generative Engine Optimization)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://pehuenia-4x4.vercel.app/sitemap.xml
