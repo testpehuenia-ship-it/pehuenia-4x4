@@ -7,6 +7,7 @@ interface QuienesSomosProps {
   onAddReservation: (res: Omit<Reservation, 'id' | 'status' | 'createdAt'>) => void;
   bookingSuccess: boolean;
   setBookingSuccess: (val: boolean) => void;
+  theme: 'light' | 'dark';
 }
 
 const GUIDES = [
@@ -33,7 +34,7 @@ const GUIDES = [
   }
 ];
 
-export default function QuienesSomos({ onAddReservation, bookingSuccess, setBookingSuccess }: QuienesSomosProps) {
+export default function QuienesSomos({ onAddReservation, bookingSuccess, setBookingSuccess, theme }: QuienesSomosProps) {
   const [category, setCategory] = useState('Curso de Manejo & Práctica (Iniciados)');
   const [formData, setFormData] = useState({
     name: '',
@@ -191,7 +192,10 @@ export default function QuienesSomos({ onAddReservation, bookingSuccess, setBook
           <div className="lg:col-span-5 space-y-8">
             <div className="space-y-4">
               <span className="font-display text-xs font-bold text-primary tracking-widest uppercase">RESERVAS DIRECTAS</span>
-              <h2 className="font-display text-4xl font-extrabold text-text-main uppercase">Sede Central</h2>
+              <div className="flex items-center gap-4 flex-wrap">
+                <h2 className="font-display text-4xl font-extrabold text-text-main uppercase">Sede Central</h2>
+                <img src="/logoTraza4x4.png" alt="TRAZA 4x4" className="h-10 md:h-12 w-auto object-contain transition-transform duration-300 hover:scale-105" />
+              </div>
               <p className="text-sm text-text-secondary leading-relaxed">
                 Contactanos por cualquiera de nuestros canales oficiales o completá el formulario adjunto para iniciar la cotización de tu itinerario a medida.
               </p>
@@ -214,7 +218,7 @@ export default function QuienesSomos({ onAddReservation, bookingSuccess, setBook
                 </div>
                 <div>
                   <h4 className="font-display text-xs font-bold text-text-muted tracking-wider uppercase">Correo de Operaciones</h4>
-                  <p className="text-text-main font-mono font-bold mt-1 hover:text-primary transition-colors">radiospehuenia@gmail.com</p>
+                  <p className="text-text-main font-mono font-bold mt-1 hover:text-primary transition-colors">radiotraza4x4@gmail.com</p>
                 </div>
               </div>
 
@@ -231,8 +235,23 @@ export default function QuienesSomos({ onAddReservation, bookingSuccess, setBook
           </div>
 
           {/* Booking Form Card */}
-          <div className="lg:col-span-7 glass-card p-6 md:p-12 rounded-lg relative">
-            <h3 className="font-display text-2xl font-bold text-text-main mb-8 uppercase tracking-tight">Inscripción Oficial - 1er Encuentro Provincial</h3>
+          <div className={`lg:col-span-7 p-6 md:p-12 rounded-lg border-2 relative transition-all duration-300 ${
+            theme === 'dark' ? 'bg-black text-white border-white/10 shadow-[0_0_30px_rgba(255,255,255,0.02)]' : 'bg-white text-black border-black/10 shadow-[0_4px_20px_rgba(0,0,0,0.05)]'
+          }`}>
+            {/* Form Title & Logo block */}
+            <div className="mb-8 space-y-2">
+              <div className="flex items-center gap-4 flex-wrap">
+                <h3 className={`font-display text-2xl font-black uppercase tracking-tight transition-colors duration-300 ${
+                  theme === 'dark' ? 'text-white' : 'text-black'
+                }`}>
+                  Inscripción Oficial
+                </h3>
+                <img src="/logoTraza4x4.png" alt="TRAZA 4x4" className="h-8 w-auto object-contain transition-transform duration-300 hover:scale-105" />
+              </div>
+              <h4 className="font-display text-base font-bold text-primary uppercase tracking-wider">
+                1er Encuentro Provincial
+              </h4>
+            </div>
             
             {bookingSuccess ? (
               <motion.div 
@@ -257,28 +276,36 @@ export default function QuienesSomos({ onAddReservation, bookingSuccess, setBook
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Name */}
                   <div className="space-y-2">
-                    <label className="font-display text-[10px] text-text-muted tracking-wider uppercase font-semibold">Nombre Completo</label>
+                    <label className={`font-display text-[10px] tracking-wider uppercase font-bold transition-colors duration-300 ${
+                      theme === 'dark' ? 'text-white/70' : 'text-black/70'
+                    }`}>Nombre Completo</label>
                     <input
                       type="text"
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="Ej. Juan Pérez"
-                      className="w-full bg-bg-main border border-border-custom px-4 py-3 text-sm text-text-main focus:outline-none focus:border-primary rounded"
+                      className={`w-full border px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary rounded transition-all duration-300 font-medium ${
+                        theme === 'dark' ? 'bg-black text-white border-white/20' : 'bg-white text-black border-black/20'
+                      }`}
                     />
                     {formErrors.name && <p className="text-red-500 text-xs">{formErrors.name}</p>}
                   </div>
 
                   {/* Email */}
                   <div className="space-y-2">
-                    <label className="font-display text-[10px] text-text-muted tracking-wider uppercase font-semibold">Correo Electrónico</label>
+                    <label className={`font-display text-[10px] tracking-wider uppercase font-bold transition-colors duration-300 ${
+                      theme === 'dark' ? 'text-white/70' : 'text-black/70'
+                    }`}>Correo Electrónico</label>
                     <input
                       type="email"
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="Ej. juan@correo.com"
-                      className="w-full bg-bg-main border border-border-custom px-4 py-3 text-sm text-text-main focus:outline-none focus:border-primary rounded"
+                      className={`w-full border px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary rounded transition-all duration-300 font-medium ${
+                        theme === 'dark' ? 'bg-black text-white border-white/20' : 'bg-white text-black border-black/20'
+                      }`}
                     />
                     {formErrors.email && <p className="text-red-500 text-xs">{formErrors.email}</p>}
                   </div>
@@ -287,68 +314,88 @@ export default function QuienesSomos({ onAddReservation, bookingSuccess, setBook
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Date (Event Fixed) */}
                   <div className="space-y-2">
-                    <label className="font-display text-[10px] text-text-muted tracking-wider uppercase font-semibold">Fecha del Evento</label>
+                    <label className={`font-display text-[10px] tracking-wider uppercase font-bold transition-colors duration-300 ${
+                      theme === 'dark' ? 'text-white/70' : 'text-black/70'
+                    }`}>Fecha del Evento</label>
                     <input
                       type="text"
                       readOnly
                       value="11 y 12 de Septiembre, 2026"
-                      className="w-full bg-bg-main/50 border border-border-custom px-4 py-3 text-sm text-text-main/70 focus:outline-none rounded cursor-not-allowed font-medium"
+                      className={`w-full border px-4 py-3 text-sm focus:outline-none rounded cursor-not-allowed font-semibold transition-all duration-300 ${
+                        theme === 'dark' ? 'bg-white/5 text-white/50 border-white/10' : 'bg-black/5 text-black/50 border-black/10'
+                      }`}
                     />
                   </div>
 
                   {/* Event Category */}
                   <div className="space-y-2">
-                    <label className="font-display text-[10px] text-text-muted tracking-wider uppercase font-semibold">Categoría de Inscripción</label>
+                    <label className={`font-display text-[10px] tracking-wider uppercase font-bold transition-colors duration-300 ${
+                      theme === 'dark' ? 'text-white/70' : 'text-black/70'
+                    }`}>Categoría de Inscripción</label>
                     <select
                       value={category}
                       onChange={(e) => setCategory(e.target.value)}
-                      className="w-full bg-bg-main border border-border-custom px-4 py-3 text-sm text-text-main focus:outline-none focus:border-primary rounded font-medium"
+                      className={`w-full border px-4 py-3 text-sm focus:outline-none focus:border-primary rounded transition-all duration-300 font-semibold cursor-pointer ${
+                        theme === 'dark' ? 'bg-black text-white border-white/20' : 'bg-white text-black border-black/20'
+                      }`}
                     >
-                      <option value="Curso de Manejo & Práctica (Iniciados)" className="bg-bg-main text-text-main">Curso de Manejo & Práctica (Iniciados)</option>
-                      <option value="Travesía con Puntaje (Experimentados)" className="bg-bg-main text-text-main">Travesía con Puntaje (Experimentados)</option>
+                      <option value="Curso de Manejo & Práctica (Iniciados)" className={theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}>Curso de Manejo & Práctica (Iniciados)</option>
+                      <option value="Travesía con Puntaje (Experimentados)" className={theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}>Travesía con Puntaje (Experimentados)</option>
                     </select>
                   </div>
 
                   {/* Number of People */}
                   <div className="space-y-2">
-                    <label className="font-display text-[10px] text-text-muted tracking-wider uppercase font-semibold">N° de Integrantes</label>
+                    <label className={`font-display text-[10px] tracking-wider uppercase font-bold transition-colors duration-300 ${
+                      theme === 'dark' ? 'text-white/70' : 'text-black/70'
+                    }`}>N° de Integrantes</label>
                     <select
                       value={formData.people}
                       onChange={(e) => setFormData({ ...formData, people: e.target.value })}
-                      className="w-full bg-bg-main border border-border-custom px-4 py-3 text-sm text-text-main focus:outline-none focus:border-primary rounded"
+                      className={`w-full border px-4 py-3 text-sm focus:outline-none focus:border-primary rounded transition-all duration-300 font-semibold cursor-pointer ${
+                        theme === 'dark' ? 'bg-black text-white border-white/20' : 'bg-white text-black border-black/20'
+                      }`}
                     >
-                      <option value="1-2" className="bg-bg-main text-text-main">1 - 2 Personas</option>
-                      <option value="3-4" className="bg-bg-main text-text-main">3 - 4 Personas</option>
-                      <option value="5+" className="bg-bg-main text-text-main">5+ Personas</option>
+                      <option value="1-2" className={theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}>1 - 2 Personas</option>
+                      <option value="3-4" className={theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}>3 - 4 Personas</option>
+                      <option value="5+" className={theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}>5+ Personas</option>
                     </select>
                   </div>
                 </div>
 
                 {/* Vehicle Type */}
                 <div className="space-y-2">
-                  <label className="font-display text-[10px] text-text-muted tracking-wider uppercase font-semibold">Tipo de Vehículo</label>
+                  <label className={`font-display text-[10px] tracking-wider uppercase font-bold transition-colors duration-300 ${
+                    theme === 'dark' ? 'text-white/70' : 'text-black/70'
+                  }`}>Tipo de Vehículo</label>
                   <select
                     value={formData.vehicle}
                     onChange={(e) => setFormData({ ...formData, vehicle: e.target.value })}
-                    className="w-full bg-bg-main border border-border-custom px-4 py-3 text-sm text-text-main focus:outline-none focus:border-primary rounded"
+                    className={`w-full border px-4 py-3 text-sm focus:outline-none focus:border-primary rounded transition-all duration-300 font-semibold cursor-pointer ${
+                      theme === 'dark' ? 'bg-black text-white border-white/20' : 'bg-white text-black border-black/20'
+                    }`}
                   >
-                    <option value="Toyota Hilux / SW4" className="bg-bg-main text-text-main">Toyota Hilux / SW4</option>
-                    <option value="Ford Ranger / Raptor" className="bg-bg-main text-text-main">Ford Ranger / Raptor</option>
-                    <option value="Jeep Wrangler / Gladiator" className="bg-bg-main text-text-main">Jeep Wrangler / Gladiator</option>
-                    <option value="Otro 4x4 con reductora" className="bg-bg-main text-text-main">Otro 4x4 con reductora (Baja)</option>
-                    <option value="No tengo vehículo propio" className="bg-bg-main text-text-main">No tengo vehículo propio (Ir de acompañante)</option>
+                    <option value="Toyota Hilux / SW4" className={theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}>Toyota Hilux / SW4</option>
+                    <option value="Ford Ranger / Raptor" className={theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}>Ford Ranger / Raptor</option>
+                    <option value="Jeep Wrangler / Gladiator" className={theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}>Jeep Wrangler / Gladiator</option>
+                    <option value="Otro 4x4 con reductora" className={theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}>Otro 4x4 con reductora (Baja)</option>
+                    <option value="No tengo vehículo propio" className={theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'}>No tengo vehículo propio (Ir de acompañante)</option>
                   </select>
                 </div>
 
                 {/* Message */}
                 <div className="space-y-2">
-                  <label className="font-display text-[10px] text-text-muted tracking-wider uppercase font-semibold">Mensaje o Consulta</label>
+                  <label className={`font-display text-[10px] tracking-wider uppercase font-bold transition-colors duration-300 ${
+                    theme === 'dark' ? 'text-white/70' : 'text-black/70'
+                  }`}>Mensaje o Consulta</label>
                   <textarea
                     rows={4}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Contanos tu experiencia off-road y equipamiento actual (Malacate, eslingas, cadenas, etc.)"
-                    className="w-full bg-bg-main border border-border-custom px-4 py-3 text-sm text-text-main focus:outline-none focus:border-primary rounded resize-none"
+                    className={`w-full border px-4 py-3 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary rounded resize-none transition-all duration-300 font-medium ${
+                      theme === 'dark' ? 'bg-black text-white border-white/20' : 'bg-white text-black border-black/20'
+                    }`}
                   />
                 </div>
 

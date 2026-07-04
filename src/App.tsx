@@ -278,6 +278,7 @@ export default function App() {
                 onAddReservation={handleAddReservation} 
                 bookingSuccess={bookingSuccess}
                 setBookingSuccess={setBookingSuccess}
+                theme={theme}
               />
             )}
           </motion.div>
