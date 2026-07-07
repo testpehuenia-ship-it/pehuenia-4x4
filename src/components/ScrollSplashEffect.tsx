@@ -13,6 +13,13 @@ interface Particle {
   friction: number;
 }
 
+interface TrackMark {
+  x: number;
+  y: number;
+  alpha: number;
+  decay: number;
+}
+
 interface ScrollSplashEffectProps {
   theme: 'light' | 'dark';
 }
@@ -20,8 +27,10 @@ interface ScrollSplashEffectProps {
 export default function ScrollSplashEffect({ theme }: ScrollSplashEffectProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const particlesRef = useRef<Particle[]>([]);
+  const tracksRef = useRef<TrackMark[]>([]);
   const lastScrollTopRef = useRef(0);
   const lastScrollTimeRef = useRef(Date.now());
+  const accumulatedScrollRef = useRef(0);
   const animationFrameIdRef = useRef<number | null>(null);
 
   // Colores de partículas basados en el tema
@@ -68,8 +77,8 @@ export default function ScrollSplashEffect({ theme }: ScrollSplashEffectProps) {
 
     // Bucle de Animación Física
     const updateAndDrawParticles = (timestamp: number) => {
-      // Agendar el siguiente frame si aún quedan partículas
-      if (particlesRef.current.length > 0) {
+      // Agendar el siguiente frame si aún quedan partículas o huellas
+      if (particlesRef.current.length > 0 || tracksRef.current.length > 0) {
         animationFrameIdRef.current = requestAnimationFrame(updateAndDrawParticles);
       } else {
         animationFrameIdRef.current = null;
@@ -87,8 +96,37 @@ export default function ScrollSplashEffect({ theme }: ScrollSplashEffectProps) {
       // Limpiar lienzo
       ctx.clearRect(0, 0, w, h);
 
-      const particles = particlesRef.current;
+      // 1. Dibujar y actualizar huellas de rodamiento (tread marks)
+      const tracks = tracksRef.current;
+      for (let i = tracks.length - 1; i >= 0; i--) {
+        const t = tracks[i];
+        t.alpha -= t.decay;
 
+        // Eliminar huellas totalmente transparentes o fuera de la pantalla
+        if (t.alpha <= 0 || t.y < -30 || t.y > h + 30) {
+          tracks.splice(i, 1);
+          continue;
+        }
+
+        // Dibujar huella en forma de V/Chevron (Neumático de barro/off-road)
+        ctx.save();
+        // Naranja neón de la marca
+        ctx.strokeStyle = `rgba(255, 95, 31, ${t.alpha})`;
+        ctx.lineWidth = 3.5;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+
+        ctx.beginPath();
+        // Dibujar huella en V (Chevron) apuntando hacia arriba
+        ctx.moveTo(t.x - 12, t.y + 4);
+        ctx.lineTo(t.x, t.y - 2);
+        ctx.lineTo(t.x + 12, t.y + 4);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // 2. Dibujar y actualizar partículas
+      const particles = particlesRef.current;
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
         
@@ -182,6 +220,38 @@ export default function ScrollSplashEffect({ theme }: ScrollSplashEffectProps) {
       }
     };
 
+    // Generar marcas de huella de neumático
+    const spawnTreadMark = (isScrollingDown: boolean) => {
+      const w = canvas.width;
+      const h = canvas.height;
+      const leftTireX = w * 0.12;
+      const rightTireX = w * 0.88;
+      
+      // Si el desplazamiento es hacia abajo, las huellas surgen desde abajo
+      const spawnY = isScrollingDown ? h - 5 : 5;
+      const decay = 0.009; // Se desvanecen gradualmente (aprox 1.8 segundos)
+
+      tracksRef.current.push({
+        x: leftTireX,
+        y: spawnY,
+        alpha: 0.8,
+        decay
+      });
+
+      tracksRef.current.push({
+        x: rightTireX,
+        y: spawnY,
+        alpha: 0.8,
+        decay
+      });
+
+      // Asegurar que el ciclo de animación se inicie
+      if (!animationFrameIdRef.current) {
+        lastFrameTime = performance.now();
+        animationFrameIdRef.current = requestAnimationFrame(updateAndDrawParticles);
+      }
+    };
+
     // Escuchar el evento de desplazamiento (Scroll)
     const handleScroll = () => {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -196,9 +266,22 @@ export default function ScrollSplashEffect({ theme }: ScrollSplashEffectProps) {
         // Velocidad en pixeles por milisegundo
         const velocity = absScrollDiff / timeDiff;
 
+        // Desplazar las huellas existentes con el scroll de la página (para fijarlas al fondo)
+        const tracks = tracksRef.current;
+        for (let i = 0; i < tracks.length; i++) {
+          tracks[i].y -= scrollDiff;
+        }
+
         // Umbral de activación para evitar partículas por micro-desplazamientos
         if (velocity > 0.15) {
           spawnSplashParticles(velocity, isScrollingDown);
+          
+          // Lógica de intervalo para la generación de huellas
+          accumulatedScrollRef.current += absScrollDiff;
+          if (accumulatedScrollRef.current >= 15) { // Spawn cada 15px de scroll vertical
+            spawnTreadMark(isScrollingDown);
+            accumulatedScrollRef.current = 0;
+          }
         }
       }
 
